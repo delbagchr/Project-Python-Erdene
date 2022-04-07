@@ -1,0 +1,147 @@
+ 
+#Movies and times dictionary
+movies = ('Iron Man', 'Avengers', 'Thor')
+times = ('12:30 am', '4:15 pm', '9:30 pm')
+ 
+time_selection = None
+
+movie_selection = None
+
+valid = None
+
+rebook = None
+ 
+#Customer order dictionary
+seats = (([], [], []), ([], [], []), ([], [], []))
+
+
+print("Welcome to the Prime Cineplex movie reservation service")
+
+
+name = input('Your Name: ')
+phone_number = input("Phone Number: ")
+
+
+#Print movies
+print ()
+print ('Available Movies')
+for index, movie in enumerate(movies):
+    print (f"{index + 1}. {movie}")
+
+
+#Blank line
+print()
+   
+
+
+#Movie Selection
+#validate order
+while movie_selection == None:
+    movie_selection = input('Movie Letter: ')
+    match movie_selection:
+        case 'A':
+            movie_selection = int(movie_selection)
+            print('Confirmed Iron Man. Which time?')
+        case 'B':
+            movie_selection = int(movie_selection)
+            print('Confirmed Avengers. Which time?')
+        case 'C':
+            movie_selection = int(movie_selection)
+            print('Confirmed Thor. Which time?')
+        case _:
+            movie_selection = None
+            print("Not a valid movie letter.")
+ 
+
+
+#Print times
+print ()
+print('Movie times')
+for index, time in enumerate(times):
+    print (f"{index + 1}. {time}")
+
+
+#Blank line
+print()
+
+
+
+while time_selection == None:
+    time_selection = input('Time Slot: ')
+    match time_selection:
+        case 'A':
+            time_selection = int(time_selection)
+            print('Confirmed 12:30 am. Which seat?')
+        case 'B':
+            time_selection = int(time_selection)
+            print('Confirmed 4:15 pm. Which seat?')
+        case 'C':
+            time_selection = int(time_selection)
+            print('Confirmed 9:30 pm. Which time?')
+        case _:
+            time_selection = None
+            print("Not a valid time slot")
+
+
+
+#1-15 seats
+seats_choices = ''
+print()
+print('Pick your seat')
+for seat in range(1, 16):
+    if seat in seats[movie_selection-1][time_selection-1]:
+        seats_choices = seats_choices + ' XX'
+    else:
+        seats_choices = seats_choices + f"{seat}"
+    print (seats_choices)
+   
+    seat_choice = None
+    while seat_choice not in range(1, 16):
+        try:
+            seat_choice = int(input("Please select your preferred seat: "))
+        except:
+            print("Not a valid seat number")
+            continue
+        if seat_choice not in range(1, 16) or seat_choice in seats[movie_selection-1][time_selection-1]:
+            print("Please choose seats from 1-15")
+            seat_choice = None
+        else:
+            seats[movie_selection-1][time_selection-1].append(seat_choice)
+            print(f"Seat {seat_choice} booked")
+    
+   
+
+
+rebook = 'yes'
+#seat order information
+print(f"Name: {name}, Phone: {phone_number}, Movie: {movies[movie_selection]}, Time: {times[time_selection]}")
+
+
+
+
+#cancel order
+def cancel_seats(movie_selection, time_selection, seats, seat_choice):
+    seats[movie_selection-1][time_selection-1].remove(seat_choice)
+    print("Your order has been canceled")
+
+
+
+
+#confirm order
+while valid not in ('yes', 'no'):
+    valid = (input("Is your order correct? ")).lower()
+    if valid == 'yes':
+        print('Your reservation is confirmed, please come on time!')
+    elif valid == 'no':
+        cancel_seats([movie_selection-1], [time_selection-1], seats, seat_choice)
+   
+
+
+
+#if wrong, rebook
+while  rebook not in ('yes', 'no'):
+    rebook = (input("Would you like to rebook? ")).lower()
+    if rebook == 'yes':
+        print('Understood, starting rebooking: ')
+    elif rebook == 'no':
+        print("Understood, come again soon!")
