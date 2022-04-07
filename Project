@@ -39,13 +39,13 @@ print()
 while movie_selection == None:
     movie_selection = input('Movie Letter: ')
     match movie_selection:
-        case 'A':
+        case '1':
             movie_selection = int(movie_selection)
             print('Confirmed Iron Man. Which time?')
-        case 'B':
+        case '2':
             movie_selection = int(movie_selection)
             print('Confirmed Avengers. Which time?')
-        case 'C':
+        case '3':
             movie_selection = int(movie_selection)
             print('Confirmed Thor. Which time?')
         case _:
@@ -69,13 +69,13 @@ print()
 while time_selection == None:
     time_selection = input('Time Slot: ')
     match time_selection:
-        case 'A':
+        case '1':
             time_selection = int(time_selection)
             print('Confirmed 12:30 am. Which seat?')
-        case 'B':
+        case '2':
             time_selection = int(time_selection)
             print('Confirmed 4:15 pm. Which seat?')
-        case 'C':
+        case '3':
             time_selection = int(time_selection)
             print('Confirmed 9:30 pm. Which time?')
         case _:
